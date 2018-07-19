@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Courses</title>
+        <meta charset="UTF-8">
+        <style>
+            #bottom{
+                width: 100%;
+            }
+            #left_column, #right_column{
+                display: inline-block;
+                vertical-align: top;
+            }
+            #left_column > *{
+                display: block;
+            }
+            #right_column > *{
+                display: block;
+                margin-left: 20px;
+                margin-bottom: 10px;
+            }
+            #right_column input{
+                width: 233px;
+            }
+            .btn{
+                position: relative;
+                top: 150px;
+                left: -345px;
+            }
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    </head>
+    <body>
+        <div id="top">
+            <h4>Courses</h4>
+            <table class="table">
+                <thead>
+                    <th>Course name</th>
+                    <th>Desription</th>
+                    <th>Date added</th>
+                    <th>Actions</th>
+                </thead>
+                {% for course in courses %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.desc }}</td>
+                        <td>{{ course.date }}</td>
+                        <td><a href="/courses/delete/{{course.id}}">remove</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <form id="bottom", action="/create", method="POST">
+            {% csrf_token %}
+            <h5>Add a new course</h5>
+            <div id="left_column">
+                <p>Name:</p>
+                <p>Description:</p>
+            </div>
+            <div id="right_column">
+                <input type="text", name="name">
+                <textarea name="desc" cols="30" rows="4"></textarea>
+            </div>
+            <input type="submit" class="btn" value="Add">
+        </form>
+    </body>
+</html>
